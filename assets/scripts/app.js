@@ -8,6 +8,7 @@ class Product {
   imageUrl;
   description;
   price;
+  // again the fields here in the class can be removed there is no need to keep the since they will be overwritten in the constructor
 
   // since the properties will change we are going to create a method to use which is a constructor method
   // the constructor method is there to help with taking arguments that will be changed since the title or the image Url is not going to be the same everywhere.
@@ -22,28 +23,28 @@ class Product {
   }
 }
 // how to add that class then as the new object then, you just go where you need it and use new then class name remember this will be assigned as a new object with same properties as the reference class.
-
-
-
 // now that we created the array for the products, now we are going to create the object to store that the above commented array
 
-const productsList = {
-  products: [
-    // then since the products are the ones which hold object of on product then 
-    // we are going to call the instance of a class here using the new keyword
-    new Product(
-                'Ferari portofino',
-                'https://hips.hearstapps.com/hmg-prod/images/2021-ferrari-portofino-m-117-1621623712.jpg?crop=0.720xw:0.540xh;0.104xw,0.364xh&resize=1200:*',
-                'This is a nive ferari incase you miss it.',
-                23.5
-                ),
-    new Product(
-                'Mercedes-Benz C-Class',
-                'https://www.topgear.com/sites/default/files/2021/11/Mercedes_C300D_0000.jpg',
-                'This is a smooth sport car you have ever taste.',
-                50
-                )  
-  ],
+// again we are going to create another class and this class will be the productList class.
+
+class ProductList {
+  // then in this product list class we are going to paste the whole login which was in the productList object.
+  products =  [
+      // then since the products are the ones which hold object of on product then 
+      // we are going to call the instance of a class here using the new keyword
+      new Product(
+                  'Ferari portofino',
+                  'https://hips.hearstapps.com/hmg-prod/images/2021-ferrari-portofino-m-117-1621623712.jpg?crop=0.720xw:0.540xh;0.104xw,0.364xh&resize=1200:*',
+                  'This is a nive ferari incase you miss it.',
+                  23.5
+                  ),
+      new Product(
+                  'Mercedes-Benz C-Class',
+                  'https://www.topgear.com/sites/default/files/2021/11/Mercedes_C300D_0000.jpg',
+                  'This is a smooth sport car you have ever taste.',
+                  50
+                 )  
+    ];
 
   // now we are going to create a render method as the third element of the object productsList
   // again the render method is going to hold all the functionalities to render the product to the user interface.
@@ -86,6 +87,10 @@ const productsList = {
     productsDiv.prepend(prodList);
     })
   }
+  
+
 }
 
-productsList.render();
+// now we are going to instanciate the class we created.
+const productList = new ProductList()
+productList.render();
