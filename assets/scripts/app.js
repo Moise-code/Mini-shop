@@ -27,9 +27,26 @@ render(){
   const productDiv = document.querySelector('#app');
   // now lets create the product list which might be the ul tag
   const prodList = document.createElement('ul');
-  prodList.classList.add()
+  prodList.classList.add('product-list');
+  this.products.forEach(prod =>{
+    const productElement = document.createElement('li');
+    productElement.classList.add('product-item');
+    productElement.innerHTML = `
+    <div>
+    <img src="${prod.imageUrl}" alt="${prod.title}">
+    <div class="product-item__content">
+    <h2>${prod.title}</h2>
+    <h3>\$${prod.price}</h3>
+    <p>${prod.description}</p>
+    <button>Add to Cart</button>
+    </div>
+    </div>
+    `
+    prodList.prepend(productElement);
+  })
   productDiv.prepend(prodList);
 
 }
 
 }
+productList.render();
