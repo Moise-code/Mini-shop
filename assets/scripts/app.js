@@ -93,6 +93,9 @@ class ShoppingCart {
     <button>Order now</button>
     
     `;
+    cartEl.className = "cart"
+    // we are then going to return the cartEl so that whenever we create the shopping cart we will be able to append cartEl to it.
+    return cartEl;
   }
 }
 
@@ -148,6 +151,14 @@ class ProductList {
 
 }
 
+// now what I will do I am going to create a new class called shop to that I access the cart there and be able to keep the track of the products.
+class Shop{
+  render(){
+    // in the render method then that is where we are going to add rendering of the product list
+    const cart = new ShoppingCart;
+    cart.render();
 // now we are going to instanciate the class we created.
 const productList = new ProductList()
 productList.render();
+  }
+}
