@@ -61,14 +61,40 @@ class ProductItem {
   </div> 
       
       `;
+      // we want to target the button in the scrip so that we can be able to add the eventListerner.
+      const addCartButton = productElement.querySelector('button');
+      addCartButton.addEventListener('click', this.addToCart.bind(this));
     // we are goin to return prodEl;
     return productElement;
     // the returned product element remember is the one which is going to be appended on the ul
 
   }
+  // lets add the method to add to cart the one we are really is going to be there attached at the event listerner.
+    // lets add another method to addToCart
+    addToCart() {
+      console.log('adding product to cart');
+      console.log(this.product)
+  
+    }
 
 }
 
+// now lets just create the new class of shopping cart so that we access the total.
+
+class ShoppingCart {
+  // lets create the array items to store the produts prices
+  items = [];
+  // lets then create the render method to render the total to the user interface.
+  render(){
+    // lets create the section where the html codes will be appended
+    const cartEl = document.createElement('section');
+    cartEl.innerHTML = `
+    <h2>Totla:\$${0}</h2>
+    <button>Order now</button>
+    
+    `;
+  }
+}
 
 // again we are going to create another class and this class will be the productList class.
 
@@ -95,12 +121,7 @@ class ProductList {
       50
     )
   ];
-  // lets add another method to addToCart
-  addToCart() {
-    console.log('adding product to cart');
-    console.log(this.product)
 
-  }
   // now we are going to create a render method as the third element of the object productsList
   // again the render method is going to hold all the functionalities to render the product to the user interface.
 
@@ -119,8 +140,6 @@ class ProductList {
       // lets access productElement.
       const prodEl = productItem.render();
       prodList.append(prodEl);
-      const addCartButton = prodEl.querySelector('button');
-      addCartButton.addEventListener('click', this.addToCart.bind(this));
       // we are going to append elements accordingly
       productsDiv.prepend(prodList);
     })
