@@ -105,9 +105,9 @@ class ShoppingCart {
 
 class ProductList {
   // then in this product list class we are going to paste the whole login which was in the productList object.
-  constructor(product){
-    this.product = product;
-  }
+  // constructor(product){
+  //   this.product = product;
+  // }
   products = [
     // then since the products are the ones which hold object of on product then 
     // we are going to call the instance of a class here using the new keyword
@@ -129,8 +129,6 @@ class ProductList {
   // again the render method is going to hold all the functionalities to render the product to the user interface.
 
   render() {
-    // lets first target the dicision from html where the ul and li's are going to be appended
-    const productsDiv = document.querySelector('#app');
     // now lets just create a new element which is a ul element
     const prodList = document.createElement('ul')
     // now lets assing a class to the prodList variable
@@ -143,9 +141,11 @@ class ProductList {
       // lets access productElement.
       const prodEl = productItem.render();
       prodList.append(prodEl);
+      console.log(prodEl)
       // we are going to append elements accordingly
-      productsDiv.prepend(prodList);
+      console.log(prodList);
     })
+    return prodList;  
   }
 
 
@@ -154,11 +154,28 @@ class ProductList {
 // now what I will do I am going to create a new class called shop to that I access the cart there and be able to keep the track of the products.
 class Shop{
   render(){
+       // lets first target the dicision from html where the ul and li's are going to be appended
+       // I place it here since its the one accept everything.
+       // then in the productList render method I will then return prodList instead of appending it to the productsDiv since it is moved here in the Shop class
+       const productsDiv = document.querySelector('#app');
     // in the render method then that is where we are going to add rendering of the product list
     const cart = new ShoppingCart;
-    cart.render();
+    // now we are going to store the cart
+    const cartEl = cart.render();
 // now we are going to instanciate the class we created.
-const productList = new ProductList()
-productList.render();
+const productLists = new ProductList()
+console.log(productLists)
+// we are storing again the productList.render
+const prodListElement = productLists.render();
+console.log(prodListElement)
+
+// now we are going to append the cart element and productListElement to the productsDiv 
+productsDiv.append(cartEl);
+productsDiv.append(prodListElement);
+console.log(prodListElement)
   }
 }
+// then for the items to be displayed on the user Interface we are going to instantiate the Shop class and store it to the variable
+// where by the variable will be called to render the render method in the Shop class
+const shop = new Shop;
+shop.render();
