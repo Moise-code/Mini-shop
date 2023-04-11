@@ -23,6 +23,19 @@ class Product {
   }
 }
 
+// lets now create the class called xcomponet to hold the contents to be inherited.
+class Component {
+  createRootElement(tag, cssClasses, attributes){
+    const rootElement = document.createElement(tag);
+    if(cssClasses){
+      rootElement.className = cssClasses;
+    } if(attributes && attributes.length > 0){
+      for(const attr of attributes){
+        rootElement.setAttribute(attr.name)
+      }
+    }
+  }
+}
 
 // how to add that class then as the new object then, you just go where you need it and use new then class name remember this will be assigned as a new object with same properties as the reference class.
 // now that we created the array for the products, now we are going to create the object to store that the above commented array
@@ -105,6 +118,12 @@ class ShoppingCart {
     updatedItems.push(product);
     this.cartItems = updatedItems;
   }
+
+  // add method called orderProduct
+  orderProduct = () =>{
+    console.log('ordering');
+    console.log(this.items);
+  }
   // lets then create the render method to render the total to the user interface.
   render(){
     // lets create the section where the html codes will be appended
@@ -113,6 +132,9 @@ class ShoppingCart {
     <h2>Totla:\$${0}</h2>
     <button>Order now</button> 
     `;
+    // lets get access to the button here
+    const orderBtn = cartEl.querySelector('button');
+    orderBtn.addEventListener('click',this.orderProduct)
     cartEl.className = "cart"
     // lets add new property to output total
     this.totalOutput = cartEl.querySelector('h2');
