@@ -22,6 +22,8 @@ class Product {
 
   }
 }
+
+
 // how to add that class then as the new object then, you just go where you need it and use new then class name remember this will be assigned as a new object with same properties as the reference class.
 // now that we created the array for the products, now we are going to create the object to store that the above commented array
 
@@ -72,9 +74,7 @@ class ProductItem {
   // lets add the method to add to cart the one we are really is going to be there attached at the event listerner.
     // lets add another method to addToCart
     addToCart() {
-      console.log('adding product to cart');
-      console.log(this.product)
-  
+      App.addProductToCart(this.product);
     }
 
 }
@@ -84,16 +84,38 @@ class ProductItem {
 class ShoppingCart {
   // lets create the array items to store the produts prices
   items = [];
+  // now lets add a setter to get the value
+  set cartItems(value){
+    this.items = value;
+    this.totalOutput.innerHTML = `<h2>Totla:\$${this.totalAmount.toFixed(1)}</h2>`
+
+  }
+
+  // since  we want to update the total of the price we are going to create a getter and setter to set the updated version of the total
+  get totalAmount(){
+    const sum = this.items.reduce((prevValue, curValue)=>{
+      return prevValue + curValue.price;
+    }, 0);
+    return sum;
+  }
+  // lets create a new method called addProduct to add the product to the cart
+  addProduct(product){
+    // this.items.push(product);
+    const updatedItems = [...this.items];
+    updatedItems.push(product);
+    this.cartItems = updatedItems;
+  }
   // lets then create the render method to render the total to the user interface.
   render(){
     // lets create the section where the html codes will be appended
     const cartEl = document.createElement('section');
     cartEl.innerHTML = `
     <h2>Totla:\$${0}</h2>
-    <button>Order now</button>
-    
+    <button>Order now</button> 
     `;
     cartEl.className = "cart"
+    // lets add new property to output total
+    this.totalOutput = cartEl.querySelector('h2');
     // we are then going to return the cartEl so that whenever we create the shopping cart we will be able to append cartEl to it.
     return cartEl;
   }
@@ -115,13 +137,13 @@ class ProductList {
       'Ferari portofino',
       'https://hips.hearstapps.com/hmg-prod/images/2021-ferrari-portofino-m-117-1621623712.jpg?crop=0.720xw:0.540xh;0.104xw,0.364xh&resize=1200:*',
       'This is a nive ferari incase you miss it.',
-      23.5
+      23.5453
     ),
     new Product(
       'Mercedes-Benz C-Class',
       'https://www.topgear.com/sites/default/files/2021/11/Mercedes_C300D_0000.jpg',
       'This is a smooth sport car you have ever taste.',
-      50
+      50.234
     )
   ];
 
@@ -159,23 +181,36 @@ class Shop{
        // then in the productList render method I will then return prodList instead of appending it to the productsDiv since it is moved here in the Shop class
        const productsDiv = document.querySelector('#app');
     // in the render method then that is where we are going to add rendering of the product list
-    const cart = new ShoppingCart;
+    this.cart = new ShoppingCart();
     // now we are going to store the cart
-    const cartEl = cart.render();
+    const cartEl = this.cart.render();
 // now we are going to instanciate the class we created.
 const productLists = new ProductList()
-console.log(productLists)
 // we are storing again the productList.render
 const prodListElement = productLists.render();
-console.log(prodListElement)
-
 // now we are going to append the cart element and productListElement to the productsDiv 
 productsDiv.append(cartEl);
 productsDiv.append(prodListElement);
 console.log(prodListElement)
   }
 }
+
+// now Lets create the overall class called App this class is going to hold everything needed
+class App{
+  static cart;
+  // we are creating the static init method.
+  // and we add the Shop class call in here
+  static init(){
 // then for the items to be displayed on the user Interface we are going to instantiate the Shop class and store it to the variable
 // where by the variable will be called to render the render method in the Shop class
-const shop = new Shop;
+const shop = new Shop();
 shop.render();
+this.cart = shop.cart;
+  }
+  //now lets create a new method called addProductToCart
+  static addProductToCart(product) {
+    this.cart.addProduct(product);
+  }
+}
+// to asign a static method to the App class we will use class name.method immediately.
+App.init();
