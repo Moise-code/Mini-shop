@@ -235,17 +235,38 @@ this.cart = shop.cart;
   }
 }
 // to asign a static method to the App class we will use class name.method immediately.
-App.init();
+// App.init();
+// const fetchedData = [];
+// fetch('https://reqres.in/api/users/4')
+// .then(res => {
+//   if(res.ok){
+//     console.log('the item is logged successfully');
+//     res.json()
+//     .then(data => console.log(data))
+//   } else{
+//     console.log('the data passed is not successful');
+//   }
+// })
 
-fetch('https://reqres.in/api/users/1').then(res=>{
-  if(res.ok){
-  res.json()
-  .then(data => console.log(data));
-  console.log('user logged successfully');    
-  } else {
-    console.log('the user is logged unsuccessfully')
-  }
-})
 // what we did up there is that we just used the json target to target the api using the datas on the list of that api and then we console logged those datas.
 
 // then what can you do to post some thing on that api
+
+fetch('https://reqres.in/api/users/43',{
+method:'POST',
+headers: {
+  'Content-Type': 'application/json' 
+}, 
+body: JSON.stringify({
+  name: 'user1'
+})
+})
+.then(res => {
+  if(res.ok){
+    res.json()
+    .then(data => console.log(data));
+    console.log('the data you passed in loged' +''+'successfully');
+  } else{ 
+    console.log('the data you passed is not in the list sir...')
+  }
+})
